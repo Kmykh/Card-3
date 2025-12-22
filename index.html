@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solemne Invitación Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Old+Standard+TT:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #630d16;
+            --gold: #c5a059;
+            --parchment: #f4e4bc;
+            --dark: #0d0d0d;
+        }
+
+        body {
+            background-color: var(--dark);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Old Standard TT', serif;
+        }
+
+        /* FONDO DE LIRIOS */
+        #flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .lily {
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            animation: lilyLife 5s ease-in-out forwards;
+        }
+
+        @keyframes lilyLife {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: scale(1.5) rotate(20deg) translateY(-50px); opacity: 0; }
+        }
+
+        /* CONTENEDOR DEL SOBRE */
+        .envelope-wrapper {
+            position: relative;
+            width: 450px;
+            height: 300px;
+            z-index: 10;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--burgundy);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 150px solid #4d0a11;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 5;
+        }
+
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .seal {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #f1c40f, #b8860b);
+            border-radius: 50%;
+            z-index: 6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+        }
+        .seal::after { content: "⚜"; font-size: 40px; color: rgba(0,0,0,0.3); }
+        .envelope-wrapper.open .seal { opacity: 0; transform: translateX(-50%) scale(0); }
+
+        /* CARTA CENTRADA EN TODA LA PANTALLA */
+        .letter {
+            position: fixed; /* Esto la saca del flujo del sobre */
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            background: var(--parchment);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            padding: 30px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,0.1);
+            z-index: 1;
+            opacity: 0;
+            /* Inicia dentro del sobre y pequeña */
+            transform: translate(-50%, -40%) scale(0.2);
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.open .letter {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1); /* Centro exacto */
+            z-index: 100;
+            pointer-events: auto;
+            box-shadow: 0 0 100px rgba(0,0,0,0.5), 0 0 20px var(--gold);
+        }
+
+        .letter-border {
+            border: 3px double var(--gold);
+            padding: 25px;
+            text-align: center;
+        }
+
+        h1 { font-family: 'Great Vibes', cursive; color: var(--burgundy); font-size: 2.8rem; margin: 10px 0; }
+        .salutation { font-family: 'Cinzel Decorative', serif; font-size: 0.8rem; color: #444; border-bottom: 1px solid var(--gold); padding-bottom: 5px; margin-bottom: 15px; display: inline-block; letter-spacing: 2px; }
+        .body-text { font-size: 1.1rem; color: #222; line-height: 1.5; font-style: italic; }
+        
+        .list-items {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
+            margin: 15px 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .date-info {
+            font-family: 'Cinzel Decorative';
+            color: var(--burgundy);
+            font-size: 0.8rem;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        /* BOTONES */
+        .btn-container { display: flex; justify-content: center; gap: 15px; }
+        .btn {
+            font-family: 'Cinzel Decorative', serif;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .btn-accept { background: var(--burgundy); color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .btn-decline { background: white; color: #666; border: 1px solid #ccc; }
+        .btn:hover { transform: scale(1.05); }
+
+        /* MODALES */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 380px;
+            background: linear-gradient(145deg, #fffef9 0%, var(--parchment) 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            padding: 0;
+            z-index: 1000;
+            border: none;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 
+                0 25px 80px rgba(0,0,0,0.5),
+                0 0 0 4px var(--gold),
+                0 0 0 8px var(--burgundy),
+                inset 0 0 30px rgba(197, 160, 89, 0.1);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: var(--burgundy);
+            padding: 20px;
+            position: relative;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .modal-header::before {
+            content: "❖";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--gold);
+            background: var(--burgundy);
+            padding: 0 10px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--gold);
+            font-size: 2rem;
+            margin: 5px 0 0 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .modal-header .subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            font-style: italic;
+            font-family: 'Old Standard TT', serif;
+        }
+
+        .modal-body {
+            padding: 25px 30px 30px;
+            background: linear-gradient(180deg, #f8f0e0 0%, var(--parchment) 100%);
+        }
+
+        .modal-body p {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .modal-body label {
+            display: block;
+            text-align: left;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.7rem;
+            color: var(--burgundy);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+        }
+
+        .input-royal {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            font-family: 'Old Standard TT', serif;
+            font-size: 1rem;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+            background: rgba(255,255,255,0.95);
+            color: #222;
+            transition: all 0.3s ease;
+        }
+
+        .input-royal:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            background: white;
+        }
+
+        .textarea-royal {
+            width: 100%;
+            height: 80px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: 'Old Standard TT', serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background: rgba(255,255,255,0.95);
+            color: #222;
+            resize: none;
+            transition: all 0.3s ease;
+            margin: 8px 0;
+        }
+
+        .textarea-royal:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            background: white;
+        }
+
+        .btn-royal {
+            font-family: 'Cinzel Decorative', serif;
+            padding: 14px 35px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--burgundy) 0%, #4d0a11 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(99, 13, 22, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        .btn-royal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 13, 22, 0.5);
+        }
+
+        .btn-royal:active {
+            transform: translateY(0);
+        }
+
+        .btn-royal.btn-secondary {
+            background: transparent;
+            color: var(--burgundy);
+            border: 2px solid var(--burgundy);
+            box-shadow: none;
+        }
+
+        .btn-royal.btn-secondary:hover {
+            background: rgba(99, 13, 22, 0.1);
+            box-shadow: none;
+        }
+
+        .success-msg {
+            color: #2d7a2d;
+            font-weight: bold;
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(45, 122, 45, 0.1);
+            border-radius: 8px;
+        }
+
+        .error-msg {
+            color: #c0392b;
+            font-size: 0.85rem;
+            display: none;
+            margin-top: 5px;
+            padding: 8px;
+            background: rgba(192, 57, 43, 0.1);
+            border-radius: 5px;
+        }
+
+        .loading {
+            display: none;
+            color: var(--burgundy);
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 20px 0;
+            opacity: 0.5;
+        }
+
+        .icon-input {
+            position: relative;
+        }
+
+        .icon-input::before {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        .decorative-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--gold);
+            opacity: 0.6;
+        }
+
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        /* Input de teléfono con prefijo */
+        .phone-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 8px 0 15px;
+        }
+
+        .phone-prefix {
+            background: linear-gradient(135deg, var(--burgundy), #4d0a11);
+            color: white;
+            padding: 14px 12px;
+            border: 2px solid var(--gold);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-family: 'Old Standard TT', serif;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .phone-input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid var(--gold);
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Old Standard TT', serif;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.95);
+            color: #222;
+            transition: all 0.3s ease;
+        }
+
+        .phone-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            background: white;
+        }
+
+        /* Modal de éxito personalizado */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 360px;
+            background: linear-gradient(145deg, #fffef9 0%, var(--parchment) 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            z-index: 1001;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 
+                0 25px 80px rgba(0,0,0,0.6),
+                0 0 0 4px var(--gold),
+                0 0 0 8px var(--burgundy);
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .success-modal.show {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .success-modal-header {
+            background: linear-gradient(135deg, #2d7a2d, #1e5a1e);
+            padding: 25px 20px;
+            position: relative;
+        }
+
+        .success-modal-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-modal-header h2 {
+            font-family: 'Great Vibes', cursive;
+            color: white;
+            font-size: 2rem;
+            margin: 0;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .success-modal-body {
+            padding: 30px 25px;
+            background: linear-gradient(180deg, #f8f0e0 0%, var(--parchment) 100%);
+        }
+
+        .success-modal-body p {
+            color: #333;
+            font-size: 1.05rem;
+            margin: 0 0 15px;
+            line-height: 1.6;
+        }
+
+        .success-modal-body .highlight {
+            background: linear-gradient(135deg, var(--burgundy), #4d0a11);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .success-modal-body .date-text {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.85rem;
+            color: var(--burgundy);
+        }
+
+        .btn-close-success {
+            font-family: 'Cinzel Decorative', serif;
+            padding: 12px 40px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--gold), #b8860b);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-close-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+        }
+
+        /* Pantalla de lirios final */
+        .lily-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a0a0d 0%, #2d1518 30%, #3d1f23 60%, #4a2830 100%);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            overflow: hidden;
+        }
+
+        .lily-field.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .lily-field-flower {
+            position: absolute;
+            font-size: 2rem;
+            animation: lilyFloat 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            filter: drop-shadow(0 0 10px rgba(255,200,200,0.3));
+        }
+
+        @keyframes lilyFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(-5px) rotate(-3deg); }
+            75% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        .lily-field-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 2s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .lily-field-content h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #f4e4bc;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
+        }
+
+        .lily-field-content p {
+            font-family: 'Old Standard TT', serif;
+            color: rgba(255,255,255,0.85);
+            font-size: 1.3rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .lily-field-content .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), #b8860b);
+            color: #1a0a0d;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .lily-field-content .heart-line {
+            font-size: 2rem;
+            margin-top: 25px;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Partículas brillantes */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Para el rechazo */
+        .lily-field.declined {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .lily-field.declined .lily-field-content h1 {
+            color: #a8d8ea;
+        }
+
+        .lily-field.declined .date-badge {
+            background: linear-gradient(135deg, #a8d8ea, #7ec8e3);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flower-container"></div>
+
+    <div class="envelope-wrapper" id="env" onclick="openLetter()">
+        <div class="seal"></div>
+        <div class="envelope"></div>
+        
+        <div class="letter" id="letter">
+            <div class="letter-border">
+                <div class="salutation">Solemne Comunicado Real</div>
+                <h1>Bellísima Mabel</h1>
+                
+                <p class="body-text">
+                    Es para este humilde caballero un honor inefable y privilegio extraordinario solicitar vuestra distinguida y encantadora presencia para una velada especial:
+                </p>
+                
+                <ul class="list-items">
+                    <li>Exquisito Banquete de Makis </li>
+                    <li>Aventura de Construcción de Legos</li>
+                    <li>Paseo por la Epoca Navideña</li>
+                </ul>
+
+                <div class="date-info">
+                    MARTES, 23 DE DICIEMBRE | 16:00 - 18:00 HRS
+                </div>
+
+                <p class="body-text" style="font-size: 0.95rem; margin-top: 10px;">
+                    Este caballero aguarda vuestra respuesta... Bobita
+                </p>
+
+                <div class="btn-container">
+                    <button class="btn btn-accept" onclick="showBooking(event)">ACEPTAR</button>
+                    <button class="btn btn-decline" onclick="confirmDecline(event)">DECLINAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="overlay"></div>
+
+    <div class="custom-modal" id="modal-booking">
+        <div class="decorative-corner corner-tl"></div>
+        <div class="decorative-corner corner-tr"></div>
+        <div class="decorative-corner corner-bl"></div>
+        <div class="decorative-corner corner-br"></div>
+        
+        <div class="modal-header">
+            <h2>Reserva Real</h2>
+            <p class="subtitle">La cita ha sido agendada</p>
+        </div>
+        
+        <div class="modal-body">
+            <p>Por favor, ingresa tus datos para confirmar la reserva:</p>
+            
+            <label for="guest-email">CORREO ELECTRONICO</label>
+            <input type="email" id="guest-email" class="input-royal" placeholder="tu.correo@ejemplo.com" required>
+            
+            <div class="divider"></div>
+            
+            <label for="final-msg">MENSAJE PARA MAYCOL</label>
+            <textarea id="final-msg" class="textarea-royal" placeholder="Escribe aqui tu mensaje..."></textarea>
+            
+            <p class="error-msg" id="error-accept">Por favor ingresa datos validos</p>
+            <p class="loading" id="loading-accept">Enviando misiva...</p>
+            <p class="success-msg" id="success-accept">Reserva confirmada con exito</p>
+            
+            <button class="btn-royal" onclick="sendAcceptEmail()">CONFIRMAR RESERVA</button>
+        </div>
+    </div>
+
+    <div class="custom-modal" id="modal-decline">
+        <div class="decorative-corner corner-tl"></div>
+        <div class="decorative-corner corner-tr"></div>
+        <div class="decorative-corner corner-bl"></div>
+        <div class="decorative-corner corner-br"></div>
+        
+        <div class="modal-header">
+            <h2>¿Está Segura?</h2>
+            <p class="subtitle">Un momento de reflexión</p>
+        </div>
+        
+        <div class="modal-body">
+            <p>El caballero se ha preparado con mucho esmero y cariño para esta velada especial...</p>
+            <p style="font-size: 0.9rem; color: #666; font-style: italic;">Los makis esperan, los legos aguardan, y el corazón del caballero late con esperanza.</p>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                <button class="btn-royal" onclick="closeDecline()">RECONSIDERAR</button>
+                <button class="btn-royal btn-secondary" onclick="showDeclineReason()">DECLINAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal" id="modal-decline-reason">
+        <div class="decorative-corner corner-tl"></div>
+        <div class="decorative-corner corner-tr"></div>
+        <div class="decorative-corner corner-bl"></div>
+        <div class="decorative-corner corner-br"></div>
+        
+        <div class="modal-header">
+            <h2>Entendido</h2>
+            <p class="subtitle">Gracias por responder</p>
+        </div>
+        
+        <div class="modal-body">
+            <label for="decline-reason">TU MENSAJE</label>
+            <textarea id="decline-reason" class="textarea-royal" placeholder="Si lo deseas, puedes dejar un mensaje..."></textarea>
+            
+            <p class="loading" id="loading-decline">Enviando respuesta...</p>
+            <p class="success-msg" id="success-decline">Mensaje enviado. Gracias por responder.</p>
+            
+            <button class="btn-royal btn-secondary" onclick="sendDeclineEmail()">CONFIRMAR</button>
+        </div>
+    </div>
+
+    <!-- Modal de éxito personalizado -->
+    <div class="success-modal" id="success-modal">
+        <div class="success-modal-header">
+            <div class="success-icon">💝</div>
+            <h2>Reserva Confirmada</h2>
+        </div>
+        <div class="success-modal-body">
+            <p style="font-size: 1.1rem; color: #333;">Revisa tu <strong>correo</strong> y tu <strong>celular</strong> para ver la confirmacion</p>
+            
+            <div class="highlight">
+                <div class="date-text">NOS VEMOS EL</div>
+                <div style="font-size: 1.3rem; margin-top: 5px;">Martes 23 de Diciembre</div>
+                <div style="margin-top: 5px; opacity: 0.9;">4:00 PM - 6:00 PM</div>
+            </div>
+            
+            <p style="font-style: italic; color: #666; font-size: 0.95rem;">Te espera una tarde increible con makis, legos y un paseo navideno</p>
+            
+            <button class="btn-close-success" onclick="showLilyField('accept')">ENTENDIDO</button>
+        </div>
+    </div>
+
+    <!-- Campo de lirios final -->
+    <div class="lily-field" id="lily-field">
+        <div class="lily-field-content" id="lily-content">
+            <h1>Nos Vemos Pronto</h1>
+            <p>Una tarde magica te espera...</p>
+            <div class="date-badge">MARTES 23 DE DICIEMBRE</div>
+            <div class="heart-line">💕</div>
+        </div>
+    </div>
+
+    <script>
+        const YOUR_EMAIL = 'maycoljhordan07@gmail.com';
+        
+        // URL de la función de Netlify (cambiar cuando esté desplegado)
+        const API_URL = '/.netlify/functions/send-email';
+
+        function openLetter() {
+            const wrapper = document.getElementById('env');
+            if (!wrapper.classList.contains('open')) {
+                wrapper.classList.add('open');
+                setInterval(createLily, 400);
+            }
+        }
+
+        function createLily() {
+            const container = document.getElementById('flower-container');
+            const lily = document.createElement('div');
+            lily.className = 'lily';
+            lily.innerHTML = '❀';
+            lily.style.left = Math.random() * 95 + 'vw';
+            lily.style.top = Math.random() * 95 + 'vh';
+            container.appendChild(lily);
+            setTimeout(() => lily.remove(), 5000);
+        }
+
+        function showBooking(e) {
+            e.stopPropagation();
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal-booking').style.display = 'block';
+        }
+
+        function confirmDecline(e) {
+            e.stopPropagation();
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal-decline').style.display = 'block';
+        }
+
+        function closeDecline() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal-decline').style.display = 'none';
+        }
+
+        function showDeclineReason() {
+            document.getElementById('modal-decline').style.display = 'none';
+            document.getElementById('modal-decline-reason').style.display = 'block';
+        }
+
+        function showSuccessModal() {
+            document.getElementById('modal-booking').style.display = 'none';
+            document.getElementById('success-modal').classList.add('show');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.remove('show');
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function showLilyField(type) {
+            // Cerrar modales
+            document.getElementById('success-modal').classList.remove('show');
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal-decline-reason').style.display = 'none';
+            
+            const lilyField = document.getElementById('lily-field');
+            const lilyContent = document.getElementById('lily-content');
+            
+            // Cambiar contenido según aceptó o rechazó
+            if (type === 'accept') {
+                lilyContent.innerHTML = `
+                    <h1>Nos Vemos Pronto</h1>
+                    <p>Una tarde magica te espera...</p>
+                    <div class="date-badge">MARTES 23 DE DICIEMBRE | 4-6 PM</div>
+                    <div class="heart-line">💕</div>
+                `;
+                lilyField.classList.remove('declined');
+            } else {
+                lilyContent.innerHTML = `
+                    <h1>Gracias por Responder</h1>
+                    <p>Quiza en otra ocasion...</p>
+                    <div class="date-badge">HASTA PRONTO</div>
+                    <div class="heart-line">🌸</div>
+                `;
+                lilyField.classList.add('declined');
+            }
+            
+            // Mostrar campo de lirios
+            lilyField.classList.add('show');
+            
+            // Crear lirios flotantes
+            createLilyField();
+            
+            // Crear partículas brillantes
+            createSparkles();
+        }
+
+        function createLilyField() {
+            const lilyField = document.getElementById('lily-field');
+            const flowers = ['🌸', '🌺', '💮', '🪷'];
+            
+            // Crear muchos lirios
+            for (let i = 0; i < 50; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'lily-field-flower';
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.top = Math.random() * 100 + 'vh';
+                flower.style.fontSize = (1 + Math.random() * 2) + 'rem';
+                flower.style.animationDelay = Math.random() * 4 + 's';
+                flower.style.opacity = 0.3 + Math.random() * 0.5;
+                lilyField.appendChild(flower);
+            }
+        }
+
+        function createSparkles() {
+            const lilyField = document.getElementById('lily-field');
+            
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                lilyField.appendChild(sparkle);
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        async function sendAcceptEmail() {
+            const guestEmail = document.getElementById('guest-email').value.trim();
+            const message = document.getElementById('final-msg').value.trim();
+            const errorEl = document.getElementById('error-accept');
+            const loadingEl = document.getElementById('loading-accept');
+            const successEl = document.getElementById('success-accept');
+            const btn = document.querySelector('#modal-booking .btn-royal');
+
+            // Validar email
+            if (!validateEmail(guestEmail)) {
+                errorEl.textContent = 'Por favor ingresa un correo valido';
+                errorEl.style.display = 'block';
+                return;
+            }
+            
+            errorEl.style.display = 'none';
+            loadingEl.style.display = 'block';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        tipo: 'aceptar',
+                        guestEmail: guestEmail,
+                        mensaje: message
+                    })
+                });
+
+                const result = await response.json();
+                loadingEl.style.display = 'none';
+
+                if (result.success) {
+                    successEl.style.display = 'block';
+                    setTimeout(() => {
+                        showSuccessModal();
+                    }, 500);
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingEl.style.display = 'none';
+                
+                // Fallback a mailto
+                const subject = 'MABEL HA ACEPTADO LA INVITACION';
+                const body = `Mabel ha ACEPTADO la invitacion!\n\nFecha: MARTES, 23 DE DICIEMBRE | 16:00 - 18:00 HRS\nCorreo: ${guestEmail}\nTelefono: ${phoneFormatted}\nMensaje: ${message || '(Sin mensaje)'}`;
+                window.location.href = `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                successEl.style.display = 'block';
+            }
+        }
+
+        async function sendDeclineEmail() {
+            const reason = document.getElementById('decline-reason').value.trim();
+            const loadingEl = document.getElementById('loading-decline');
+            const successEl = document.getElementById('success-decline');
+            const btn = document.querySelector('#modal-decline-reason .btn-royal');
+
+            loadingEl.style.display = 'block';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        tipo: 'declinar',
+                        guestEmail: '',
+                        mensaje: reason
+                    })
+                });
+
+                const result = await response.json();
+                loadingEl.style.display = 'none';
+
+                if (result.success) {
+                    successEl.style.display = 'block';
+                    setTimeout(() => {
+                        showLilyField('decline');
+                    }, 1000);
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingEl.style.display = 'none';
+                
+                // Fallback a mailto
+                const subject = 'Mabel ha declinado la invitacion';
+                const body = `Mabel ha declinado la invitacion.\n\nMensaje: ${reason || '(Sin mensaje)'}`;
+                window.location.href = `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                successEl.style.display = 'block';
+                setTimeout(() => showLilyField('decline'), 1000);
+            }
+        }
+    </script>
+</body>
+</html>
