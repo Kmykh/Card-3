@@ -50,50 +50,64 @@ exports.handler = async (event, context) => {
         <html>
         <head>
           <style>
-            body { font-family: Georgia, serif; background: #f4e4bc; margin: 0; padding: 20px; }
-            .container { max-width: 520px; margin: 0 auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-            .header { background: linear-gradient(135deg, #630d16, #4d0a11); padding: 35px 20px; text-align: center; }
-            .header h1 { color: #c5a059; font-family: Georgia, serif; margin: 0; font-size: 32px; }
-            .header p { color: rgba(255,255,255,0.9); margin: 10px 0 0; font-style: italic; }
-            .content { padding: 35px; text-align: center; background: linear-gradient(180deg, #fffef9, #f4e4bc); }
-            .heart { font-size: 50px; margin-bottom: 15px; }
-            .message { font-size: 18px; color: #333; line-height: 1.8; margin-bottom: 25px; }
-            .info-box { background: white; border: 2px solid #c5a059; border-radius: 12px; padding: 25px; margin: 25px 0; text-align: left; }
-            .info-box h3 { color: #630d16; margin: 0 0 15px; font-size: 16px; text-align: center; border-bottom: 1px solid #c5a059; padding-bottom: 10px; }
-            .info-box p { margin: 10px 0; color: #444; font-size: 15px; }
-            .signature { margin-top: 30px; font-style: italic; color: #630d16; font-size: 16px; }
-            .footer { background: #630d16; color: white; padding: 20px; text-align: center; font-size: 13px; }
+            body { font-family: 'Georgia', serif; background: linear-gradient(135deg, #ffeef2, #ffd4d8); margin: 0; padding: 20px; }
+            .container { max-width: 520px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+            .header { background: linear-gradient(135deg, #f78ca2, #ff9fb2); padding: 40px 20px; text-align: center; }
+            .header h1 { color: white; font-family: 'Pacifico', cursive; margin: 0; font-size: 36px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+            .header p { color: rgba(255,255,255,0.95); margin: 12px 0 0; font-style: italic; font-size: 16px; }
+            .content { padding: 40px 30px; text-align: center; background: linear-gradient(180deg, #ffffff, #fff5f7); }
+            .heart { font-size: 60px; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite; }
+            @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+            .message { font-size: 18px; color: #5a3d4a; line-height: 1.8; margin-bottom: 30px; font-family: 'Quicksand', sans-serif; }
+            .info-box { background: #fff5f7; border: 3px solid #ff9fb2; border-radius: 15px; padding: 25px; margin: 25px 0; text-align: left; }
+            .info-box h3 { color: #f78ca2; margin: 0 0 20px; font-size: 18px; text-align: center; font-family: 'Dancing Script', cursive; }
+            .info-box p { margin: 12px 0; color: #5a3d4a; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+            .info-box p strong { color: #f78ca2; min-width: 80px; }
+            .icon { font-size: 24px; }
+            .user-message { background: #ffeef2; border-left: 4px solid #f78ca2; padding: 20px; margin: 25px 0; border-radius: 10px; }
+            .user-message h4 { color: #f78ca2; margin: 0 0 12px; font-size: 16px; }
+            .user-message p { color: #5a3d4a; margin: 0; font-style: italic; line-height: 1.6; font-size: 15px; }
+            .signature { margin-top: 30px; font-style: italic; color: #f78ca2; font-size: 18px; font-family: 'Dancing Script', cursive; }
+            .footer { background: linear-gradient(135deg, #f78ca2, #ff9fb2); color: white; padding: 25px; text-align: center; font-size: 14px; }
           </style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Reserva Confirmada</h1>
-              <p>Tu cita especial esta lista</p>
+              <h1>¡Reserva Confirmada!</h1>
+              <p>Tu cita especial está lista ✨</p>
             </div>
             <div class="content">
-              <div class="heart">💝</div>
+              <div class="heart">💕</div>
               <p class="message">
-                Hermosa Mabel, tu reserva ha sido confirmada exitosamente.<br><br>
-                Maycol te espera para compartir una tarde increible juntos. 
-                Habra makis deliciosos, legos para construir y un paseo navideno que sera inolvidable.
+                ¡Hola hermosa! Tu reserva ha sido confirmada exitosamente.<br><br>
+                Me emociona mucho poder compartir esta tarde tan especial contigo.
+                Será una salida llena de risas, buena comida y momentos inolvidables.
               </p>
               
               <div class="info-box">
-                <h3>Detalles de tu Cita</h3>
-                <p><strong>Fecha:</strong> Martes, 23 de Diciembre 2025</p>
-                <p><strong>Hora:</strong> 4:00 PM - 6:00 PM</p>
-                <p><strong>Actividades:</strong> Makis, Legos y Paseo Navideno</p>
+                <h3>✨ Detalles de Nuestra Cita ✨</h3>
+                <p><span class="icon">📅</span> <strong>Fecha:</strong> Lunes, 19 de Enero 2026</p>
+                <p><span class="icon">⏰</span> <strong>Hora:</strong> 1:00 PM - 7:00 PM</p>
+                <p><span class="icon">🌮</span> <strong>Comida:</strong> Tacos Deliciosos</p>
+                <p><span class="icon">🌳</span> <strong>Paseo:</strong> Caminata por el Parque</p>
               </div>
               
+              ${mensaje ? `
+              <div class="user-message">
+                <h4>Tu mensaje para mí:</h4>
+                <p>"${mensaje}"</p>
+              </div>
+              ` : ''}
+              
               <p class="signature">
-                Con carino y esperando verte pronto,<br>
-                <strong>Maycol</strong> 
+                Con mucho cariño y esperando verte pronto,<br>
+                <strong>Tu persona favorita 💖</strong>
               </p>
             </div>
             <div class="footer">
-              Este es un mensaje automatico de confirmacion.<br>
-              Nos vemos el martes, bobita 
+              📧 Este es un mensaje automático de confirmación.<br>
+              ¡Nos vemos el domingo, mi amor! 🌟
             </div>
           </div>
         </body>
@@ -101,9 +115,9 @@ exports.handler = async (event, context) => {
       `;
 
       await transporter.sendMail({
-        from: '"Maycol - Invitacion Especial" <' + process.env.EMAIL_USER + '>',
+        from: '"Invitación Especial 💕" <' + process.env.EMAIL_USER + '>',
         to: guestEmail,
-        subject: 'Tu Reserva esta Confirmada - Cita del Martes 23',
+        subject: '💕 Tu Reserva está Confirmada - Domingo 19 de Enero',
         html: emailParaMabel
       });
 
@@ -113,53 +127,63 @@ exports.handler = async (event, context) => {
         <html>
         <head>
           <style>
-            body { font-family: Georgia, serif; background: #f4e4bc; margin: 0; padding: 20px; }
-            .container { max-width: 500px; margin: 0 auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-            .header { background: linear-gradient(135deg, #2d7a2d, #1e5a1e); padding: 30px; text-align: center; }
-            .header h1 { color: white; font-family: Georgia, serif; margin: 0; font-size: 26px; }
-            .badge { background: #ffd700; color: #333; padding: 8px 20px; border-radius: 20px; display: inline-block; font-weight: bold; margin-top: 10px; }
-            .content { padding: 30px; }
-            .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+            body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+            .container { max-width: 500px; margin: 0 auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+            .header { background: linear-gradient(135deg, #2ecc71, #27ae60); padding: 35px; text-align: center; }
+            .header h1 { color: white; margin: 0; font-size: 28px; font-weight: bold; }
+            .badge { background: #ffd700; color: #333; padding: 10px 25px; border-radius: 25px; display: inline-block; font-weight: bold; margin-top: 15px; font-size: 14px; }
+            .content { padding: 35px; }
+            .success-icon { font-size: 60px; text-align: center; margin-bottom: 20px; }
+            .info-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee; }
             .info-row:last-child { border-bottom: none; }
-            .label { color: #666; font-size: 14px; }
-            .value { color: #333; font-weight: bold; font-size: 14px; }
-            .message-box { background: #f9f5eb; border-left: 4px solid #630d16; padding: 20px; margin: 20px 0; }
-            .message-box h4 { color: #630d16; margin: 0 0 10px; }
-            .message-box p { color: #444; margin: 0; font-style: italic; line-height: 1.6; }
-            .footer { background: #333; color: white; padding: 15px; text-align: center; font-size: 12px; }
+            .label { color: #666; font-size: 14px; font-weight: 500; }
+            .value { color: #333; font-weight: bold; font-size: 14px; text-align: right; }
+            .message-box { background: #f8f9fa; border-left: 5px solid #f78ca2; padding: 20px; margin: 25px 0; border-radius: 8px; }
+            .message-box h4 { color: #f78ca2; margin: 0 0 12px; font-size: 16px; }
+            .message-box p { color: #444; margin: 0; font-style: italic; line-height: 1.6; font-size: 15px; }
+            .cta { background: linear-gradient(135deg, #f78ca2, #ff9fb2); color: white; padding: 15px; text-align: center; margin: 25px 0; border-radius: 10px; font-size: 16px; font-weight: bold; }
+            .footer { background: #34495e; color: white; padding: 20px; text-align: center; font-size: 13px; }
           </style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>MABEL HA ACEPTADO</h1>
-              <div class="badge">CONFIRMADO</div>
+              <h1>🎉 ¡ELLA HA ACEPTADO! 🎉</h1>
+              <div class="badge">✓ CONFIRMADO</div>
             </div>
             <div class="content">
+              <div class="success-icon">💕</div>
+              
               <div class="info-row">
-                <span class="label">Fecha</span>
-                <span class="value">Martes, 23 de Diciembre</span>
+                <span class="label">📅 Fecha</span>
+                <span class="value">Domingo, 19 de Enero 2026</span>
               </div>
               <div class="info-row">
-                <span class="label">Hora</span>
-                <span class="value">4:00 PM - 6:00 PM</span>
+                <span class="label">⏰ Hora</span>
+                <span class="value">1:00 PM - 7:00 PM</span>
               </div>
               <div class="info-row">
-                <span class="label">Correo de Mabel</span>
+                <span class="label">🌮 Actividad</span>
+                <span class="value">Tacos y Paseo por el Parque</span>
+              </div>
+              <div class="info-row">
+                <span class="label">📧 Su correo</span>
                 <span class="value">${guestEmail}</span>
               </div>
               
+              ${mensaje ? `
               <div class="message-box">
-                <h4>Mensaje de Mabel para ti:</h4>
-                <p>"${mensaje || 'No dejo mensaje, pero ACEPTO! 🎉'}"</p>
+                <h4>💌 Mensaje de ella para ti:</h4>
+                <p>"${mensaje}"</p>
               </div>
+              ` : '<p style="text-align: center; color: #666; margin: 20px 0;">No dejó mensaje adicional, ¡pero aceptó! 🎊</p>'}
               
-              <p style="text-align: center; color: #2d7a2d; font-size: 18px; margin-top: 20px;">
-                <strong>Prepara todo para la cita!</strong>
-              </p>
+              <div class="cta">
+                ¡Prepárate para una cita increíble! 🌟
+              </div>
             </div>
             <div class="footer">
-              Notificacion automatica - ${new Date().toLocaleString('es-PE')}
+              📧 Notificación automática - ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}
             </div>
           </div>
         </body>
@@ -167,22 +191,22 @@ exports.handler = async (event, context) => {
       `;
 
       await transporter.sendMail({
-        from: '"Sistema de Invitacion" <' + process.env.EMAIL_USER + '>',
+        from: '"Sistema de Invitación 💕" <' + process.env.EMAIL_USER + '>',
         to: TU_EMAIL,
-        subject: 'MABEL HA ACEPTADO LA INVITACION!',
+        subject: '🎉 ¡ELLA HA ACEPTADO LA INVITACIÓN! - Domingo 19 Enero',
         html: emailParaMaycol
       });
 
       // ========== SMS PARA TI ==========
       await twilioClient.messages.create({
-        body: 'MABEL HA ACEPTADO! La cita del Martes 23 (4-6PM) esta confirmada. ' + (mensaje ? 'Mensaje: "' + mensaje + '"' : 'Sin mensaje adicional.'),
+        body: `🎉 ¡ELLA HA ACEPTADO! La cita del Domingo 19 de Enero (1-7 PM) está confirmada. Tacos y paseo por el parque. ${mensaje ? 'Su mensaje: "' + mensaje + '"' : '¡Sin mensaje pero aceptó!'}`,
         messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
         to: TU_NUMERO
       });
 
       // ========== SMS PARA MABEL ==========
       await twilioClient.messages.create({
-        body: 'Hola Mabel! Tu reserva para el Martes 23 de Diciembre (4-6 PM) esta confirmada. Maycol te espera con makis, legos y mucho carino. Nos vemos! - Con amor, Maycol',
+        body: '💕 ¡Hola! Tu reserva para el Domingo 19 de Enero (1:00-7:00 PM) está confirmada. Tacos deliciosos y paseo por el parque te esperan. ¡Nos vemos pronto! 🌮🌳',
         messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
         to: NUMERO_MABEL
       });
