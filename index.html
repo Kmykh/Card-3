@@ -432,9 +432,10 @@
             font-size: 2rem;
             color: var(--hot-pink);
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 50px;
             text-shadow: 2px 2px 4px rgba(255, 77, 109, 0.2);
             font-weight: 700;
+            margin-top: -30px;
         }
 
         .big-heart-container {
@@ -510,6 +511,8 @@
             display: flex;
             gap: 20px;
             animation: fadeInUp 1s ease 0.5s both;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         @keyframes fadeInUp {
@@ -554,6 +557,27 @@
         .btn-no:hover {
             background: var(--cream);
             transform: translateY(-5px);
+        }
+
+        .btn-back {
+            background: white;
+            color: var(--rose);
+            border: 3px solid var(--rose);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(247, 140, 162, 0.2);
+            margin-top: 20px;
+        }
+
+        .btn-back:hover {
+            background: var(--cream);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 140, 162, 0.3);
         }
 
         /* ========== MODALES ========== */
@@ -850,7 +874,10 @@
             <p class="loading" id="loading-accept">Enviando tu mensaje de amor...</p>
             <p class="success-msg" id="success-accept">¡Tu mensaje llegó a mi corazón! 💕</p>
             
-            <button class="btn-royal" onclick="sendAccept()">Enviar con amor 💕</button>
+            <div style="display: flex; gap: 12px; justify-content: center; margin-top: 8px;">
+                <button class="btn-royal" onclick="sendAccept()">Enviar con amor 💕</button>
+                <button class="btn-royal btn-secondary" onclick="closeModal()">⬅ Volver</button>
+            </div>
         </div>
     </div>
 
@@ -867,6 +894,7 @@
             
             <div style="display: flex; gap: 12px; justify-content: center; margin-top: 25px;">
                 <button class="btn-royal" onclick="sendDecline()">Está bien 💕</button>
+                <button class="btn-royal btn-secondary" onclick="closeModal()">⬅ Volver</button>
             </div>
         </div>
     </div>
@@ -1106,6 +1134,18 @@ Con este detalle también quiero decirte todo lo que siento por ti: que me impor
         function closeVerifyModal() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('modal-verify').style.display = 'none';
+        }
+
+        function closeModal() {
+            // Cerrar cualquier modal abierto y volver al corazón
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal-accept').style.display = 'none';
+            document.getElementById('modal-decline').style.display = 'none';
+            // Limpiar campos y mensajes
+            document.getElementById('accept-msg').value = '';
+            document.getElementById('error-accept').style.display = 'none';
+            document.getElementById('loading-accept').style.display = 'none';
+            document.getElementById('success-accept').style.display = 'none';
         }
 
         async function sendAccept() {
