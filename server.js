@@ -19,7 +19,7 @@ const TWILIO_MESSAGING_SID = process.env.TWILIO_MESSAGING_SID;
 const TU_EMAIL = process.env.EMAIL_USER;
 const TU_NUMERO = process.env.TU_NUMERO;
 const NUMERO_MABEL = process.env.NUMERO_MABEL;
-const EMAIL_MABEL = 'maycoljhordan07@gmail.com';
+const EMAIL_MABEL = process.env.EMAIL_MABEL;
 
 // Configurar transporter de Gmail
 const transporter = nodemailer.createTransport({
@@ -208,7 +208,7 @@ app.post('/.netlify/functions/send-email', async (req, res) => {
       // ========== SMS PARA MABEL ==========
       console.log('Enviando SMS a Mabel:', NUMERO_MABEL);
       await twilioClient.messages.create({
-        body: '💕 Mi amor, acabas de recibir un mensaje muy especial en tu correo. Ábrelo cuando puedas, fue hecho con mucho amor para ti. Eres mi mundo entero 🌍✨',
+        body: '💕 Amor mío, hoy quise enviarte un pequeño pedacito de lo que siento por ti. Cuando lo leas, imagina mis brazos rodeándote y mi corazón hablándote bajito… porque todo lo que nace de mí, nace pensando en ti 🌷✨',
         messagingServiceSid: TWILIO_MESSAGING_SID,
         to: NUMERO_MABEL
       });
